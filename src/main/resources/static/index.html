@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-logo">GF</div>
+            <div>
+                <h1 id="appTitle">GovFlow</h1>
+                <p id="appSubtitle">AI Multilingual Aid Navigator</p>
+            </div>
+        </div>
+
+        <div class="top-actions">
+            <label for="uiLanguage" class="lang-label" id="languageLabel">Language</label>
+            <select id="uiLanguage" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="bm">Bahasa Melayu</option>
+                <option value="zh">中文</option>
+                <option value="ta">தமிழ்</option>
+            </select>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="showTab('finder', event)" id="tabFinder">Aid Finder</button>
+        <button class="tab-btn" onclick="showTab('chatbot', event)" id="tabChatbot">AI Chatbot</button>
+        <button class="tab-btn" onclick="showTab('guide', event)" id="tabGuide">Application Guide</button>
+    </nav>
+
+    <main class="content">
+
+        <!-- AID FINDER -->
+        <section id="finder" class="tab-content active">
+            <div class="panel hero-panel">
+                <div class="hero-left">
+                    <h2 id="finderTitle">Find the aid that matches your situation</h2>
+                    <p id="finderSubtitle">
+                        Enter your details and GovFlow will suggest possible government assistance in your preferred language.
+                    </p>
+                </div>
+                <div class="hero-badge" id="heroBadge">Citizen First</div>
+            </div>
+
+            <div class="grid-two">
+                <div class="panel">
+                    <h3 id="formTitle">Your Information</h3>
+
+                    <div class="form-group">
+                        <label for="age" id="ageLabel">Age</label>
+                        <input type="number" id="age" placeholder="Enter your age">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="income" id="incomeLabel">Monthly Income (RM)</label>
+                        <input type="number" id="income" placeholder="Enter your income">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employmentStatus" id="employmentLabel">Employment Status</label>
+                        <select id="employmentStatus">
+                            <option value="" id="employmentPlaceholder">Select your employment status</option>
+                            <option value="unemployed" id="optUnemployed">Unemployed</option>
+                            <option value="employed" id="optEmployed">Employed</option>
+                            <option value="self-employed" id="optSelfEmployed">Self-employed</option>
+                            <option value="student" id="optStudent">Student</option>
+                            <option value="retired" id="optRetired">Retired</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferredLanguage" id="preferredLanguageLabel">Preferred Output Language</label>
+                        <select id="preferredLanguage">
+                            <option value="" id="preferredLanguagePlaceholder">Select output language</option>
+                            <option value="English">English</option>
+                            <option value="Bahasa Melayu">Bahasa Melayu</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Tamil">Tamil</option>
+                        </select>
+                    </div>
+
+                    <button class="primary-btn" onclick="submitRecommendation()" id="findAidBtn">Find My Aid</button>
+                </div>
+
+                <div class="panel">
+                    <h3 id="recommendationTitle">Recommendation Result</h3>
+                    <div class="result-card">
+                        <p id="result">Your recommendation result will appear here.</p>
+                    </div>
+
+                    <div class="result-action">
+                        <button class="secondary-btn" onclick="showFillForm()" id="fillFormBtn">
+                            Proceed to Fill Form
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILL FORM SECTION -->
+            <div id="fillFormSection" class="panel hidden">
+                <h3 id="fillFormTitle">Application Form</h3>
+                <p id="fillFormSubtitle">Please complete the form below to continue your application.</p>
+
+                <div class="grid-two">
+                    <div>
+                        <div class="form-group">
+                            <label for="fullName" id="fullNameLabel">Full Name</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icNumber" id="icLabel">IC / Passport Number</label>
+                            <input type="text" id="icNumber" placeholder="Enter IC or passport number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNumber" id="phoneLabel">Phone Number</label>
+                            <input type="text" id="phoneNumber" placeholder="Enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address" id="addressLabel">Address</label>
+                            <input type="text" id="address" placeholder="Enter your address">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="selectedAid" id="selectedAidLabel">Selected Aid</label>
+                            <input type="text" id="selectedAid" placeholder="Aid name will appear here">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formIncome" id="formIncomeLabel">Monthly Income (RM)</label>
+                            <input type="number" id="formIncome" placeholder="Enter monthly income">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formEmploymentStatus" id="formEmploymentLabel">Employment Status</label>
+                            <input type="text" id="formEmploymentStatus" placeholder="Employment status">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalNotes" id="notesLabel">Additional Notes</label>
+                            <input type="text" id="additionalNotes" placeholder="Optional notes">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="primary-btn" onclick="submitApplicationForm()" id="submitFormBtn">
+                    Submit Form
+                </button>
+
+                <div id="formSuccessMessage" class="success-message hidden">
+                    Thank you for filling out the form. Please wait a few days for further notice.
+                </div>
+            </div>
+        </section>
+
+        <!-- CHATBOT -->
+        <section id="chatbot" class="tab-content">
+            <div class="panel">
+                <div class="section-head">
+                    <div>
+                        <h2 id="chatTitle">Ask GovFlow AI</h2>
+                        <p id="chatSubtitle">Ask questions about aid, eligibility, and application steps.</p>
+                    </div>
+                </div>
+
+                <div class="chat-box" id="chatMessages">
+                    <div class="bot-message" id="chatWelcome">
+                        Hello! Ask me anything about government aid.
+                    </div>
+                </div>
+
+                <div class="chat-controls">
+                    <select id="chatLanguage">
+                        <option value="English">English</option>
+                        <option value="Bahasa Melayu">Bahasa Melayu</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Tamil">Tamil</option>
+                    </select>
+
+                    <input type="text" id="chatInput" placeholder="Type your question here...">
+                    <button class="primary-btn" onclick="sendChat()" id="chatSendBtn">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GUIDE -->
+        <section id="guide" class="tab-content">
+            <div class="grid-two">
+                <div class="panel">
+                    <h2 id="guideTitle">Get Application Guide</h2>
+                    <p id="guideSubtitle">Choose or type an aid program name to get step-by-step guidance.</p>
+
+                    <div class="form-group">
+                        <label for="aidName" id="aidNameLabel">Aid Program Name</label>
+                        <input type="text" id="aidName" placeholder="Example: Bantuan Sara Hidup">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guideLanguage" id="guideLanguageLabel">Guide Language</label>
+                        <select id="guideLanguage">
+                            <option value="English">English</option>
+                            <option value="Bahasa Melayu">Bahasa Melayu</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Tamil">Tamil</option>
+                        </select>
+                    </div>
+
+                    <button class="primary-btn" onclick="getGuide()" id="guideBtn">Get Guide</button>
+                </div>
+
+                <div class="panel">
+                    <h3 id="guideResultTitle">Guide Result</h3>
+                    <div class="result-card">
+                        <p id="guideResult">Your guide will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
