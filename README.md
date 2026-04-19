@@ -1,3 +1,4 @@
+
 # GovFlow
 
 # GovFlow AI Assistant
@@ -45,7 +46,7 @@ User enters a question → frontend sends request → backend processes → AI g
 ---
 
 ## Screenshots
-
+<img width="1859" height="1002" alt="Screenshot 2026-04-18 215004" src="https://github.com/user-attachments/assets/97727805-342f-4352-9876-94559250cf3c" />
 
 ---
 
